@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
- <head>
-        <title>Interface Ajouter Lieu (Statique)</title>
-        
+    <h:head>
+        <title>Gestion des Lieux</title>
         <style type="text/css">
-            /* Définition des couleurs principales */
             :root {
                 --couleur-rouge: #CE1126; 
                 --couleur-blanc: #FFFFFF;
@@ -14,154 +14,84 @@
                 --couleur-fond-clair: #f9f9f9;
             }
 
-            /* Style du corps de la page */
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: var(--couleur-blanc);
-                color: var(--couleur-texte);
-                margin: 0;
-                padding: 40px 20px;
-                text-align: center;
-            }
-            
-            /* Style du titre */
-            h2 {
-                color: var(--couleur-rouge);
-                font-size: 2.5em;
-                border-bottom: 3px solid var(--couleur-rouge);
-                display: inline-block;
-                padding-bottom: 5px;
-                margin-bottom: 30px;
-            }
+            body { font-family: 'Arial', sans-serif; background-color: var(--couleur-blanc); color: var(--couleur-texte); margin: 0; padding: 20px; text-align: center; }
+            h2 { color: var(--couleur-rouge); border-bottom: 3px solid var(--couleur-rouge); padding-bottom: 5px; }
 
-            .form-container {
-                width: 500px; /* Augmenté la largeur pour la disposition en 2 colonnes */
-                margin: 20px auto;
-                padding: 25px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                background-color: var(--couleur-fond-clair);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-                text-align: left;
-            }
+            .form-container { width: 600px; margin: 20px auto; padding: 25px; border: 1px solid #ddd; border-radius: 8px; background-color: var(--couleur-fond-clair); text-align: left; }
+            .form-row { display: flex; align-items: flex-start; margin-bottom: 15px; }
+            .form-row label { flex-basis: 150px; font-weight: bold; padding-right: 15px; text-align: right; }
+            .input-field-container { flex-grow: 1; }
             
-            /* NOUVELLE STRUCTURE FLEXBOX POUR ALIGNER LABEL ET CHAMP */
-            .form-row {
-                /* Active Flexbox */
-                display: flex; 
-                /* Les éléments sont disposés sur une seule ligne */
-                align-items: flex-start; /* Alignement vertical en haut */
-                margin-bottom: 15px; 
-            }
+            .input-text { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
             
-            .form-row label {
-                font-weight: bold;
-                color: var(--couleur-texte);
-                /* Donne au label une largeur fixe pour l'alignement */
-                flex-basis: 150px; 
-                padding-top: 5px; /* Aligner le texte avec le haut du champ */
-                padding-right: 15px;
-                text-align: right;
-            }
+            /* Style du Tableau */
+            .table-container { width: 90%; margin: 30px auto; border-collapse: collapse; }
+            .table-container th { background-color: var(--couleur-rouge); color: white; padding: 10px; }
+            .table-container td { border: 1px solid #ddd; padding: 8px; text-align: left; }
             
-            /* Conteneur pour le champ de saisie */
-            .input-field-container {
-                flex-grow: 1; /* Prend l'espace restant */
-            }
+            .btn { padding: 5px 12px; border-radius: 4px; cursor: pointer; text-decoration: none; border: none; font-size: 0.9em; margin: 2px; }
+            .btn-save { background-color: var(--couleur-rouge); color: white; width: 100%; padding: 10px; }
+            .btn-edit { background-color: #2196F3; color: white; }
+            .btn-delete { background-color: #f44336; color: white; }
+            .nav-link { display: block; margin-top: 20px; color: var(--couleur-rouge); text-decoration: none; font-weight: bold; }
+        </style>
+    </h:head>
 
-            .input-field-container input[type="text"],
-            .input-field-container textarea {
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                width: 100%; /* S'étend sur toute la largeur de son conteneur */
-                box-sizing: border-box;
-                font-size: 1em;
-            }
-            
-            /* Style du bouton centré */
-            .button-container {
-                text-align: center; /* Centrer le bouton dans le conteneur */
-                margin-top: 25px;
-            }
-            
-            .button-submit {
-                background-color: var(--couleur-rouge);
-                color: var(--couleur-blanc);
-                border: none;
-                padding: 10px 25px;
-                font-size: 1.1em;
-                cursor: pointer;
-                border-radius: 6px;
-                transition: background-color 0.3s;
-            }
-            
-            .button-submit:hover {
-                background-color: #B00A1F;
-            }
+    <h:body>
+        <h2>Gestion des Lieux Missions</h2>
 
-            .nav-link {
-                margin-top: 30px;
-                display: block;
-                color: var(--couleur-rouge);
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 1.1em;
-            }
-            
-            .nav-link:hover {
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    
-    <body>
-        
-        <h2>Ajouter un Nouveau Lieu</h2>
-        
-        <div class="form-container">
-
-            <form action="#">
-                
-                                <div class="form-row">
-                    <label for="nom">Nom du Lieu :</label>
-                    <div class="input-field-container">
-                        <input type="text" id="nom" name="nom" />
+        <div class="form-container">
+            <h:form id="lieuForm">
+                <div class="form-row">
+                    <label>Nom :</label>
+                    <div class="input-field-container">
+                        <h:inputText value="#{lieuBean.nom}" class="input-text" required="true"/>
                     </div>
-                </div>
-                
-                                <div class="form-row">
-                    <label for="description">Description :</label>
-                    <div class="input-field-container">
-                                                <textarea id="description" name="description" rows="4"></textarea> 
-                    </div>
-                </div>
-                
-                                <div class="form-row">
-                    <label for="latitude">Latitude (ex: 48.8584) :</label>
-                    <div class="input-field-container">
-                        <input type="text" id="latitude" name="latitude" />
-                    </div>
-                </div>
-                
-                                <div class="form-row">
-                    <label for="longitude">Longitude (ex: 2.2945) :</label>
-                    <div class="input-field-container">
-                        <input type="text" id="longitude" name="longitude" />
-                    </div>
-                </div>
-                
-                <div class="button-container">
-                    <button type="submit" class="button-submit">Enregistrer le Lieu</button>
                 </div>
-                
-            </form>
 
-        </div>
-        
-       <a href="../index.xhtml" class="nav-link">
-            &#x2190; Retourner à l'Accueil
-       </a>
-        
-    </body>
+                <div class="form-row">
+                    <label>Description :</label>
+                    <div class="input-field-container">
+                        <h:inputTextarea value="#{lieuBean.description}" rows="3" class="input-text"/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>Latitude :</label>
+                    <div class="input-field-container">
+                        <h:inputText value="#{lieuBean.latitude}" class="input-text"/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>Longitude :</label>
+                    <div class="input-field-container">
+                        <h:inputText value="#{lieuBean.longitude}" class="input-text"/>
+                    </div>
+                </div>
+
+                <h:commandButton value="Enregistrer / Mettre à jour" action="#{lieuBean.ajouterLieu()}" class="btn btn-save" />
+            </h:form>
+        </div>
+
+        <h3>Liste des Lieux Enregistrés</h3>
+        <h:form>
+            <h:dataTable value="#{lieuBean.lieux}" var="l" class="table-container">
+                <h:column><f:facet name="header">Nom</f:facet>#{l.nom}</h:column>
+                <h:column><f:facet name="header">Description</f:facet>#{l.description}</h:column>
+                <h:column><f:facet name="header">Coordonnées</f:facet>#{l.latitude}, #{l.longitude}</h:column>
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton value="Modifier" action="#{lieuBean.preparerModification(l)}" class="btn btn-edit">
+                        <f:ajax render="lieuForm" />
+                    </h:commandButton>
+                    
+                    <h:commandButton value="Supprimer" action="#{lieuBean.supprimerLieu(l)}" 
+                                     onclick="return confirm('Supprimer ce lieu ?')" class="btn btn-delete" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h:link outcome="/index.xhtml" value="← Retourner à l'Accueil" class="nav-link" />
+    </h:body>
 </html>
