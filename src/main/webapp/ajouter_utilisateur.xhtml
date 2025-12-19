@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Ajouter un Utilisateur - Indonésie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body { background-color: #f8f9fa; }
+        .bg-indonesia { background-color: #FF0000; } /* Rouge Drapeau */
+        .card-header { color: white; font-weight: bold; }
+        .btn-indonesia { background-color: #FF0000; border-color: #FF0000; color: white; }
+        .btn-indonesia:hover { background-color: #CC0000; border-color: #CC0000; color: white; }
+        .text-red { color: #FF0000; }
+    </style>
+</h:head>
+<h:body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-indonesia text-center py-3">
+                        <h2 class="mb-0">Inscription Utilisateur</h2>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <h:form id="userForm">
+                            
+                            <h:messages globalOnly="true" class="alert alert-danger list-unstyled" />
+
+                            <div class="mb-3">
+                                <h:outputLabel for="username" value="Nom d'utilisateur :" class="form-label font-weight-bold" />
+                                <h:inputText id="username" value="#{utilisateurBean.username}" 
+                                             class="form-control" placeholder="Entrez votre pseudo" />
+                                <h:message for="username" class="text-danger small" />
+                            </div>
+
+                            <div class="mb-3">
+                                <h:outputLabel for="email" value="Email :" class="form-label" />
+                                <h:inputText id="email" value="#{utilisateurBean.email}" 
+                                             class="form-control" placeholder="exemple@domaine.id" />
+                                <h:message for="email" class="text-danger small" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <h:outputLabel for="password" value="Mot de passe :" class="form-label" />
+                                    <h:inputSecret id="password" value="#{utilisateurBean.password}" class="form-control" />
+                                    <h:message for="password" class="text-danger small" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h:outputLabel for="confirmPassword" value="Confirmer :" class="form-label" />
+                                    <h:inputSecret id="confirmPassword" value="#{utilisateurBean.confirmPassword}" class="form-control" />
+                                    <h:message for="confirmPassword" class="text-danger small" />
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h:outputLabel for="description" value="Description :" class="form-label" />
+                                <h:inputTextarea id="description" value="#{utilisateurBean.description}" 
+                                                 class="form-control" rows="3" />
+                                <h:message for="description" class="text-danger small" />
+                            </div>
+
+                            <div class="d-grid">
+                                <h:commandButton value="Ajouter l'Utilisateur" 
+                                                 action="#{utilisateurBean.ajouterUtilisateur}" 
+                                                 class="btn btn-indonesia btn-lg" />
+                            </div>
+                            
+                        </h:form>
+                    </div>
+                    <div class="card-footer text-center text-muted small">
+                        Jakarta Mission Project - 2025
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</h:body>
+</html>
